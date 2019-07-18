@@ -7,7 +7,7 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { value: '', cmds: [] };
+    this.state = { value: "", tasks: ["Sacar la ropa","Hacer la cama","Leer un rato"] };
 
     this.keyPress = this.keyPress.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -18,14 +18,11 @@ class App extends Component {
  }
 
   keyPress(e){
-    //const keyCode = event.keyCode || event.which;
-    if(e.keyCode === 13){
-      this.setState(({ cmds, value }) => ({
-        value: '',
-        cmds: [...cmds, value]
+      this.setState(({ tasks, value }) => ({
+        value: "",
+        tasks: [...tasks, value]
       }));
-      e.preventDefault()
-    }
+      e.preventDefault();
   };
 
   render() {
@@ -34,17 +31,14 @@ class App extends Component {
         <div className="list">
           <h3>Por hacer:</h3>
           <ul className="todo">
-            <li>Sacar la ropa</li>
-            <li>Hacer la cama</li>
-            <li>Leer un rato</li>
-            {this.state.cmds.map(cmd =>
+            {this.state.tasks.map(tasks =>
               <li>
-                {cmd}
+                {tasks}
               </li>
             )}
           </ul>
-           <form>
-             <input type="text"  id="new-task" value={this.state.value} onKeyDown={this.keyPress} onChange={this.handleChange} placeholder="Ingresa una tarea y oprime Enter" />
+           <form onSubmit={this.keyPress}> 
+             <input type="text"  id="new-task" value={this.state.value} onChange={this.handleChange} placeholder="Ingresa una tarea y oprime Enter" />
            </form>
         </div>
       </div>
